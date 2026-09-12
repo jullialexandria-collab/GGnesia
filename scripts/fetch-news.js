@@ -2,7 +2,10 @@ const fs = require("fs");
 const Parser = require("rss-parser");
 
 const parser = new Parser({
-    timeout: 15000
+    timeout: 30000,
+    headers: {
+        "User-Agent": "GGNesia-NewsBot/1.0"
+    }
 });
 
 const feeds = [
@@ -20,51 +23,59 @@ const feeds = [
 
 async function getFeed(feed) {
 
-    try {
+    console.log(`\nMengambil RSS: ${feed.name}`);
+    console.log(`URL: ${feed.url}`);
 
-        console.log(`Mengambil: ${feed.name}`);
+    try {
 
         const result = await parser.parseURL(feed.url);
 
-        return result.items.map(item => ({
+        console.log(
+            `${feed.name}: ${result.items.length} artikel ditemukan`
+        );
 
-            title: item.title || "Berita Game",
+        return result.items.map(item => {
 
-            category: feed.category,
-
-            date: item.isoDate || item.pubDate || new Date().toISOString(),
-
-            description: cleanDescription(
+            let description =
                 item.contentSnippet ||
                 item.content ||
                 item.summary ||
-                ""
-            ),
+                "";
 
-            image: getImage(item),
+            description = cleanText(description);
 
-            source: feed.name,
-
-            url: item.link || "#"
-
-        }));
+            return {
+                title: cleanText(item.title || "Berita Game"),
+                category: feed.category,
+                date: item.isoDate || item.pubDate || new Date().toISOString(),
+                description: description.substring(0, 180),
+                image: getImage(item),
+                source: feed.name,
+                url: item.link || "#"
+            };
+        });
 
     } catch (error) {
 
-        console.error(`Gagal mengambil ${feed.name}:`, error.message);
+        console.error(
+            `GAGAL mengambil ${feed.name}: ${error.message}`
+        );
 
         return [];
     }
 }
 
 
-function cleanDescription(text) {
+function cleanText(text) {
 
-    return text
+    return String(text)
         .replace(/<[^>]*>/g, "")
+        .replace(/&nbsp;/g, " ")
+        .replace(/&amp;/g, "&")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
         .replace(/\s+/g, " ")
-        .trim()
-        .substring(0, 180);
+        .trim();
 }
 
 
@@ -74,8 +85,26 @@ function getImage(item) {
         return item.enclosure.url;
     }
 
-    if (item.media && item.media.content) {
-        return item.media.content.url || "";
+    if (item["media:content"]) {
+
+        const media = item["media:content"];
+
+        if (Array.isArray(media) && media.length > 0) {
+            return media[0].$?.url || media[0].url || "";
+        }
+
+        return media.$?.url || media.url || "";
+    }
+
+    if (item["media:thumbnail"]) {
+
+        const thumbnail = item["media:thumbnail"];
+
+        if (Array.isArray(thumbnail) && thumbnail.length > 0) {
+            return thumbnail[0].$?.url || thumbnail[0].url || "";
+        }
+
+        return thumbnail.$?.url || thumbnail.url || "";
     }
 
     return "";
@@ -93,25 +122,33 @@ async function main() {
         allArticles = allArticles.concat(articles);
     }
 
+    console.log(
+        `\nTotal artikel sebelum filter: ${allArticles.length}`
+    );
+
 
     const uniqueArticles = [];
-
     const usedUrls = new Set();
 
     for (const article of allArticles) {
 
-        if (!article.url || usedUrls.has(article.url)) {
+        if (
+            !article.url ||
+            article.url === "#" ||
+            usedUrls.has(article.url)
+        ) {
             continue;
         }
 
         usedUrls.add(article.url);
-
         uniqueArticles.push(article);
     }
 
 
     uniqueArticles.sort((a, b) => {
+
         return new Date(b.date) - new Date(a.date);
+
     });
 
 
@@ -126,8 +163,10 @@ async function main() {
 
 
     console.log(
-        `Berhasil menyimpan ${latestArticles.length} berita.`
+        `Total berita disimpan: ${latestArticles.length}`
     );
+
+    console.log("Selesai.");
 }
 
 
