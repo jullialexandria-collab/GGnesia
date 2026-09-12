@@ -1,48 +1,73 @@
-const menuBtn = document.getElementById("menuBtn");
-const nav = document.querySelector(".nav");
+document.addEventListener("DOMContentLoaded", () => {
 
-menuBtn.addEventListener("click", () => {
-    nav.classList.toggle("active");
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.querySelector(".nav");
+
+    if (menuBtn && nav) {
+        menuBtn.addEventListener("click", () => {
+            nav.classList.toggle("active");
+        });
+    }
+
+    loadArticles();
 });
 
+
 async function loadArticles() {
+
+    const newsGrid = document.getElementById("newsGrid");
+
+    if (!newsGrid) {
+        console.error("newsGrid tidak ditemukan!");
+        return;
+    }
+
     try {
-        const response = await fetch("data/articles.json");
+
+        const response = await fetch("./data/articles.json");
 
         if (!response.ok) {
-            throw new Error("Gagal mengambil data berita");
+            throw new Error("Gagal mengambil articles.json");
         }
 
         const articles = await response.json();
-        const newsGrid = document.getElementById("newsGrid");
 
-        newsGrid.innerHTML = articles.map(article => `
-            <article class="news-card">
+        newsGrid.innerHTML = articles.map(article => {
 
-                <div class="news-image">
-                    <span>${article.category}</span>
-                </div>
+            return `
+                <article class="news-card">
 
-                <div class="news-content">
+                    <div class="news-image">
+                        <span>${article.category}</span>
+                    </div>
 
-                    <small>${article.date}</small>
+                    <div class="news-content">
 
-                    <h3>${article.title}</h3>
+                        <small>${article.date}</small>
 
-                    <p>${article.description}</p>
+                        <h3>${article.title}</h3>
 
-                    <a href="${article.url}">
-                        Baca selengkapnya →
-                    </a>
+                        <p>${article.description}</p>
 
-                </div>
+                        <a href="${article.url}">
+                            Baca selengkapnya →
+                        </a>
 
-            </article>
-        `).join("");
+                    </div>
+
+                </article>
+            `;
+
+        }).join("");
 
     } catch (error) {
-        console.error("Terjadi kesalahan:", error);
+
+        console.error("Gagal memuat berita:", error);
+
+        newsGrid.innerHTML = `
+            <p>
+                Berita sedang dimuat...
+            </p>
+        `;
     }
 }
-
-loadArticles();
