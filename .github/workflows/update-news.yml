@@ -21,11 +21,13 @@ jobs:
         with:
           node-version: 20
 
-      - name: Update news
-        run: |
-          echo "Sistem update berita GGNesia siap."
-          
-      - name: Commit changes
+      - name: Install dependencies
+        run: npm install rss-parser
+
+      - name: Fetch latest news
+        run: node scripts/fetch-news.js
+
+      - name: Save updated news
         run: |
           git config user.name "GGNesia Bot"
           git config user.email "actions@github.com"
