@@ -34,22 +34,39 @@ async function loadArticles() {
 
         newsGrid.innerHTML = articles.map(article => {
 
+            const image = article.image
+                ? `<img src="${article.image}" alt="${article.title}">`
+                : `<div class="news-image-placeholder">
+                       <span>${article.category}</span>
+                   </div>`;
+
+            const date = new Date(article.date).toLocaleDateString("id-ID", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
             return `
                 <article class="news-card">
 
                     <div class="news-image">
-                        <span>${article.category}</span>
+                        ${image}
+                        <span class="category-badge">
+                            ${article.category}
+                        </span>
                     </div>
 
                     <div class="news-content">
 
-                        <small>${article.date}</small>
+                        <small>
+                            ${date} • ${article.source}
+                        </small>
 
                         <h3>${article.title}</h3>
 
                         <p>${article.description}</p>
 
-                        <a href="${article.url}">
+                        <a href="${article.url}" target="_blank">
                             Baca selengkapnya →
                         </a>
 
@@ -65,9 +82,7 @@ async function loadArticles() {
         console.error("Gagal memuat berita:", error);
 
         newsGrid.innerHTML = `
-            <p>
-                Berita sedang dimuat...
-            </p>
+            <p>Berita gagal dimuat.</p>
         `;
     }
 }
