@@ -1,0 +1,410 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b0f19;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* HEADER */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #0b0f19;
+    border-bottom: 1px solid #202637;
+}
+
+.header-content {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span,
+.footer-logo span {
+    color: #00e5ff;
+}
+
+.nav {
+    display: flex;
+    gap: 28px;
+}
+
+.nav a {
+    color: #b8c0d4;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav a:hover {
+    color: #00e5ff;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+/* HERO */
+
+.hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, #0b0f19 10%, rgba(11, 15, 25, 0.75) 50%, rgba(11, 15, 25, 0.25)),
+        radial-gradient(circle at 80% 40%, #123b54, #0b0f19 55%);
+    border-bottom: 1px solid #202637;
+}
+
+.hero-content {
+    padding: 70px 0;
+}
+
+.hero-text {
+    max-width: 650px;
+}
+
+.label {
+    color: #00e5ff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 6vw, 70px);
+    line-height: 1.05;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: #00e5ff;
+}
+
+.hero p:not(.label) {
+    color: #b8c0d4;
+    font-size: 18px;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.hero-button {
+    display: inline-block;
+    padding: 14px 22px;
+    background: #00e5ff;
+    color: #061018;
+    border-radius: 8px;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.hero-button:hover {
+    transform: translateY(-3px);
+}
+
+
+/* CATEGORY */
+
+.categories {
+    padding: 45px 0;
+    border-bottom: 1px solid #202637;
+}
+
+.categories h2 {
+    margin-bottom: 20px;
+}
+
+.category-list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.category-list a {
+    padding: 10px 17px;
+    background: #151b29;
+    border: 1px solid #293247;
+    border-radius: 30px;
+    color: #cbd2e1;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.category-list a:hover {
+    background: #00e5ff;
+    color: #061018;
+    border-color: #00e5ff;
+}
+
+
+/* SECTION TITLE */
+
+main {
+    padding: 70px 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+}
+
+.section-title > a {
+    color: #00e5ff;
+    font-weight: 700;
+}
+
+
+/* NEWS */
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.news-card {
+    background: #121827;
+    border: 1px solid #242d40;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+    border-color: #00e5ff;
+}
+
+.news-image {
+    height: 210px;
+    background:
+        linear-gradient(135deg, #12384a, #151c2c);
+    display: flex;
+    align-items: end;
+    padding: 15px;
+}
+
+.news-image.image-two {
+    background:
+        linear-gradient(135deg, #382b13, #171b2c);
+}
+
+.news-image.image-three {
+    background:
+        linear-gradient(135deg, #321a3b, #121b2c);
+}
+
+.news-image span {
+    background: #00e5ff;
+    color: #061018;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.news-content {
+    padding: 22px;
+}
+
+.news-content small {
+    color: #7f8ba3;
+    font-size: 12px;
+}
+
+.news-content h3 {
+    font-size: 20px;
+    line-height: 1.3;
+    margin: 10px 0 12px;
+}
+
+.news-content p {
+    color: #9da7bb;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.news-content a {
+    color: #00e5ff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* ESPORTS */
+
+.esports {
+    padding: 70px 0;
+    background: #080c14;
+    border-top: 1px solid #202637;
+    border-bottom: 1px solid #202637;
+}
+
+.esports-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.esports-card {
+    padding: 30px;
+    background: #121827;
+    border: 1px solid #242d40;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.esports-card:hover {
+    border-color: #00e5ff;
+    transform: translateY(-5px);
+}
+
+.esports-icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.esports-card h3 {
+    margin-bottom: 8px;
+    font-size: 22px;
+}
+
+.esports-card p {
+    color: #9da7bb;
+}
+
+
+/* FOOTER */
+
+.footer {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.footer-logo {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.footer p {
+    color: #7f8ba3;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin: 25px 0;
+}
+
+.footer-links a {
+    color: #aeb7c9;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    color: #00e5ff;
+}
+
+.copyright {
+    font-size: 12px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: #0b0f19;
+        border-bottom: 1px solid #202637;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .nav.active {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .hero {
+        min-height: 450px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero p:not(.label) {
+        font-size: 16px;
+    }
+
+    .news-grid,
+    .esports-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        align-items: start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
