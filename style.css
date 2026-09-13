@@ -608,3 +608,66 @@ main {
     color: #081018 !important;
     border-color: #00d9ff !important;
 }
+/* =========================
+   RAPiKAN TURNAMEN - MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .tournament-page {
+        padding-top: 35px !important;
+    }
+
+    .tournament-page .label {
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+
+    .tournament-page h1 {
+        font-size: 34px;
+        line-height: 1.2;
+        margin-bottom: 15px;
+    }
+
+    .tournament-page .intro {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    /* Filter game jadi satu baris yang bisa digeser */
+    .tournament-filters {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+        margin: 15px 0 25px;
+        padding-bottom: 6px;
+        scrollbar-width: none;
+    }
+
+    .tournament-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tournament-filters .filter-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 10px 16px !important;
+    }
+
+    /* Kartu turnamen lebih dekat dengan filter */
+    .tournament-list {
+        margin-top: 15px;
+        gap: 16px;
+    }
+
+    .tournament-card {
+        padding: 20px;
+    }
+
+    .tournament-card h2 {
+        font-size: 22px;
+        line-height: 1.35;
+    }
+}
