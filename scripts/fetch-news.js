@@ -19,6 +19,11 @@ const feeds = [
         url: "https://www.gamingonlinux.com/article_rss.php?newsonly",
         category: "PC Gaming"
     }
+    {
+        name: "Hybrid",
+        url: "https://hybrid.co.id/feed/",
+        category: "Game News"
+}
 ];
 const text = `${title} ${source}`.toLowerCase();
 
