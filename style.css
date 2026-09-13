@@ -497,3 +497,31 @@ main {
     background: #8b949e;
     color: #ffffff;
 }
+.tournament-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 25px 0;
+}
+
+.filter-btn {
+    background: #161b22;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    border-color: #00d9ff;
+    color: #00d9ff;
+}
+
+.filter-btn.active {
+    background: #00d9ff;
+    color: #081018;
+    border-color: #00d9ff;
+}
