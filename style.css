@@ -438,3 +438,40 @@ main {
     -webkit-line-clamp: unset;
     line-clamp: unset;
 }
+/* =========================
+   TURNAMEN ESPORTS
+========================= */
+
+.tournament-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.tournament-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 22px;
+    transition: 0.3s;
+}
+
+.tournament-card:hover {
+    transform: translateY(-5px);
+    border-color: #58a6ff;
+}
+
+.tournament-card h2 {
+    margin-bottom: 18px;
+    font-size: 21px;
+}
+
+.tournament-card p {
+    margin: 10px 0;
+    color: #c9d1d9;
+}
+
+.tournament-card strong {
+    color: #ffffff;
+}
