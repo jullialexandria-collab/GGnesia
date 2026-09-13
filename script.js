@@ -40,9 +40,8 @@ async function loadArticles(category = "all") {
     }
 
     try {
-
-        const response = await fetch("./data/articles.json");
-
+const response = await fetch("./data/articles.json?v=" + Date.now());
+        
         if (!response.ok) {
             throw new Error("Gagal mengambil articles.json");
         }
