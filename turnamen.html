@@ -69,7 +69,7 @@ async function loadTournaments() {
             <div class="tournament-card">
                 <h2>🏆 ${tournament.name}</h2>
                 <p><strong>Game:</strong> ${tournament.game}</p>
-                <p><strong>Status:</strong> ${tournament.status}</p>
+                <p><strong>Status:</strong> <span class="status-badge ${tournament.status.toLowerCase()}">${tournament.status}</span></p>
                 <p><strong>Tanggal:</strong> ${tournament.date}</p>
                 <p><strong>Lokasi:</strong> ${tournament.location}</p>
             </div>
