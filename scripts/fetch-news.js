@@ -25,8 +25,10 @@ const feeds = [
         category: "Game News"
 }
 ]; 
-function detectCategory(title, description, source) {
-const text = `${title} ${source}`.toLowerCase();
+function detectCategory(title, 
+description, source) {
+const text = `${title} ${source}
+`.toLowerCase();
     const esportsKeywords = [
         "esports",
         "e-sports",
