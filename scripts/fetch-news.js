@@ -2,22 +2,22 @@ const fs = require("fs");
 const Parser = require("rss-parser");
 
 const parser = new Parser({
-    timeout: 30000,
+    timeout: 15000,
     headers: {
-        "User-Agent": "GGNesia-NewsBot/1.0"
+        "User-Agent": "Mozilla/5.0 GGNesia-NewsBot/1.0"
     }
 });
 
 const feeds = [
     {
-        name: "Babel Insight",
-        url: "https://www.babelinsight.id/rss/game.xml",
+        name: "GameSpot",
+        url: "https://www.gamespot.com/feeds/game-news/",
         category: "Game News"
     },
     {
-        name: "GRYOnline",
-        url: "https://www.gry-online.pl/rss/news.xml",
-        category: "Game News"
+        name: "GamingOnLinux",
+        url: "https://www.gamingonlinux.com/article_rss.php?newsonly",
+        category: "PC Gaming"
     }
 ];
 
@@ -126,7 +126,6 @@ async function main() {
         `\nTotal artikel sebelum filter: ${allArticles.length}`
     );
 
-
     const uniqueArticles = [];
     const usedUrls = new Set();
 
@@ -144,16 +143,11 @@ async function main() {
         uniqueArticles.push(article);
     }
 
-
     uniqueArticles.sort((a, b) => {
-
         return new Date(b.date) - new Date(a.date);
-
     });
 
-
     const latestArticles = uniqueArticles.slice(0, 30);
-
 
     fs.writeFileSync(
         "data/articles.json",
@@ -161,13 +155,11 @@ async function main() {
         "utf8"
     );
 
-
     console.log(
         `Total berita disimpan: ${latestArticles.length}`
     );
 
     console.log("Selesai.");
 }
-
 
 main();
