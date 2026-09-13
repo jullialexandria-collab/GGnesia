@@ -406,7 +406,9 @@ async function getGamebrott() {
         console.log("Gamebrott gagal diambil:", error.message);
         return [];
     }
-}
+}const gamebrottArticles = await getGamebrott();
+
+allArticles = allArticles.concat(gamebrottArticles);
     // Hapus artikel tanpa URL dan duplikat
     const uniqueArticles = [];
     const usedUrls = new Set();
