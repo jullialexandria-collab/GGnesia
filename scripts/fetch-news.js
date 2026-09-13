@@ -34,9 +34,31 @@ async function getFeed(feed) {
         console.log(
             `${feed.name}: ${result.items.length} artikel ditemukan`
         );
+const filteredItems = result.items.filter(item => {
 
-        return result.items.map(item => {
+    const text = (
+        (item.title || "") + " " +
+        (item.contentSnippet || "") + " " +
+        (item.summary || "")
+    ).toLowerCase();
 
+    const blockedWords = [
+        "kde plasma",
+        "linux mint",
+        "xapp",
+        "desktop linux",
+        "linux desktop",
+        "gnome",
+        "ubuntu desktop"
+    ];
+
+    return !blockedWords.some(word =>
+        text.includes(word)
+    );
+});
+
+return filteredItems.map(item => {
+        
             let description =
                 item.contentSnippet ||
                 item.content ||
