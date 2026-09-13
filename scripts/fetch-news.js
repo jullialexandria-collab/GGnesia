@@ -18,16 +18,16 @@ const feeds = [
         name: "GamingOnLinux",
         url: "https://www.gamingonlinux.com/article_rss.php?newsonly",
         category: "PC Gaming"
-    }
+    },
     {
         name: "Hybrid",
         url: "https://hybrid.co.id/feed/",
         category: "Game News"
 }
 ]; 
-function detectCategory(title, 
-description, source) {
-const text = `${title} ${source}
+  function detectCategory(title, 
+  description, source) {
+  const text = `${title} ${source}
 `.toLowerCase();
     const esportsKeywords = [
         "esports",
