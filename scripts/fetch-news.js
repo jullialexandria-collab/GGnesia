@@ -130,7 +130,7 @@ function getImage(item) {
         return match[1];
     }
 
-    return "";
+    return "./images/ggnesia-placeholder.svg";
 }
 
 
