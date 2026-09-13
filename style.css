@@ -576,3 +576,35 @@ main {
     color: #8b949e;
     font-size: 14px;
 }
+/* =========================
+   FILTER JADWAL PERTANDINGAN
+========================= */
+
+.match-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0 25px;
+}
+
+.match-filter-btn {
+    background: #161b22 !important;
+    color: #c9d1d9 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 10px !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+}
+
+.match-filter-btn:hover {
+    border-color: #00d9ff !important;
+    color: #00d9ff !important;
+}
+
+.match-filter-btn.active {
+    background: #00d9ff !important;
+    color: #081018 !important;
+    border-color: #00d9ff !important;
+}
