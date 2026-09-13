@@ -34,9 +34,11 @@ async function loadArticles() {
 
         newsGrid.innerHTML = articles.map(article => {
 
-            const image = article.image
+            const image = article.image && !article.image.includes("ggnesia-placeholder")
     ? `<img src="${article.image}" alt="${article.title}">`
-    : `<div class="news-image-placeholder"></div>`;
+    : `<div class="news-image-placeholder">
+           <span>${article.category}</span>
+       </div>`;
 
             const date = new Date(article.date).toLocaleDateString("id-ID", {
                 day: "numeric",
