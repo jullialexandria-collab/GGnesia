@@ -20,8 +20,7 @@ const feeds = [
         category: "PC Gaming"
     }
 ];
-function detectCategory(title, description, source) {
-    const text = `${title} ${description} ${source}`.toLowerCase();
+const text = `${title} ${source}`.toLowerCase();
 
     const esportsKeywords = [
         "esports",
