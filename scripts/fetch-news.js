@@ -363,7 +363,50 @@ async function main() {
         `\nTotal artikel sebelum filter: ${allArticles.length}`
     );
 
+async function getGamebrott() {
+    try {
+        const response = await fetch("https://gamebrott.com/berita/");
+        const html = await response.text();
 
+        const articles = [];
+        const regex = /<article[\s\S]*?<\/article>/gi;
+        const matches = html.match(regex) || [];
+
+        for (const article of matches.slice(0, 15)) {
+            const titleMatch = article.match(
+                /<h[1-6][^>]*>\s*<a[^>]*>([\s\S]*?)<\/a>/i
+            );
+
+            const linkMatch = article.match(
+                /<a[^>]+href=["']([^"']+)["'][^>]*>/i
+            );
+
+            if (!titleMatch || !linkMatch) continue;
+
+            const title = cleanText(titleMatch[1]);
+            const url = linkMatch[1];
+
+            if (!title || !url) continue;
+
+            articles.push({
+                title,
+                category: detectCategory(title, "", "Gamebrott"),
+                date: new Date().toISOString(),
+                description: "",
+                image: "",
+                source: "Gamebrott",
+                url
+            });
+        }
+
+        console.log(`Gamebrott: ${articles.length} berita`);
+
+        return articles;
+    } catch (error) {
+        console.log("Gamebrott gagal diambil:", error.message);
+        return [];
+    }
+}
     // Hapus artikel tanpa URL dan duplikat
     const uniqueArticles = [];
     const usedUrls = new Set();
