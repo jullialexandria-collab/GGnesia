@@ -24,9 +24,9 @@ const feeds = [
         url: "https://hybrid.co.id/feed/",
         category: "Game News"
 }
-];function detectCategory(title, description, source) {
+]; 
+function detectCategory(title, description, source) {
 const text = `${title} ${source}`.toLowerCase();
-
     const esportsKeywords = [
         "esports",
         "e-sports",
