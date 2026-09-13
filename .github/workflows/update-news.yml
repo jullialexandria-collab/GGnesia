@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-ggnesia-news
+  cancel-in-progress: false
+
 jobs:
   update-news:
     runs-on: ubuntu-latest
@@ -15,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,6 +37,16 @@ jobs:
         run: |
           git config user.name "GGNesia Bot"
           git config user.email "actions@github.com"
+
           git add data/articles.json
-          git diff --cached --quiet || git commit -m "Update berita GGNesia"
+
+          if git diff --cached --quiet; then
+            echo "Tidak ada perubahan berita."
+            exit 0
+          fi
+
+          git commit -m "Update berita GGNesia"
+
+          git pull --rebase origin main
+
           git push
