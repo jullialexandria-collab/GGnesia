@@ -49,9 +49,7 @@ async function loadArticles() {
 
                     <div class="news-image">
                         ${image}
-                        <span class="category-badge">
-                            ${article.category}
-                        </span>
+                        
                     </div>
 
                     <div class="news-content">
