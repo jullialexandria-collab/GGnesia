@@ -671,3 +671,68 @@ main {
         line-height: 1.35;
     }
 }
+/* =========================
+   TURNAMEN MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .tournament-page {
+        padding-top: 30px !important;
+    }
+
+    .tournament-page h1 {
+        font-size: 32px;
+        line-height: 1.2;
+        margin-bottom: 12px;
+    }
+
+    .tournament-page .intro {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+
+    /* FILTER 1 BARIS */
+    .tournament-page .tournament-filters {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 8px;
+        margin: 10px 0 20px;
+        padding: 3px 0 8px;
+        scrollbar-width: none;
+    }
+
+    .tournament-page .tournament-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tournament-page .tournament-filters .filter-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 9px 14px !important;
+        font-size: 13px !important;
+    }
+
+    /* KARTU TURNAMEN */
+    .tournament-page .tournament-list {
+        margin-top: 10px;
+        gap: 14px;
+    }
+
+    .tournament-page .tournament-card {
+        padding: 18px;
+    }
+
+    .tournament-page .tournament-card h2 {
+        font-size: 21px;
+        line-height: 1.35;
+        margin-bottom: 14px;
+    }
+
+    .tournament-page .tournament-card p {
+        font-size: 15px;
+        margin: 8px 0;
+    }
+}
