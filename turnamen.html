@@ -108,14 +108,18 @@ function showTournaments(game) {
         </div>
     `).join("");
 }
-async function loadMatches() {
+async function loadMatches(game = "all") {
     const matchList = document.getElementById("matchList");
 
     try {
         const response = await fetch("data/matches.json");
         const matches = await response.json();
 
-        matchList.innerHTML = matches.map(match => `
+        const filteredMatches = game === "all"
+            ? matches
+            : matches.filter(match => match.game === game);
+
+        matchList.innerHTML = filteredMatches.map(match => `
             <div class="match-card">
                 <p class="match-tournament">${match.tournament}</p>
                 <h3>${match.team1} ⚔️ ${match.team2}</h3>
@@ -128,6 +132,7 @@ async function loadMatches() {
     } catch (error) {
         matchList.innerHTML = "<p>Gagal memuat jadwal pertandingan.</p>";
     }
+}
 }
 document.querySelectorAll(".filter-btn").forEach(button => {
     button.addEventListener("click", () => {
