@@ -525,3 +525,54 @@ main {
     color: #081018 !important;
     border-color: #00d9ff !important;
 }
+/* =========================
+   JADWAL PERTANDINGAN
+========================= */
+
+.schedule-title {
+    margin-top: 35px;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+#matchList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.match-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.match-card:hover {
+    transform: translateY(-4px);
+    border-color: #00d9ff;
+}
+
+.match-tournament {
+    color: #00d9ff;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.match-card h3 {
+    font-size: 22px;
+    margin: 10px 0 18px;
+    color: #ffffff;
+}
+
+.match-card p {
+    margin: 8px 0;
+    color: #c9d1d9;
+}
+
+.match-card p:last-child {
+    color: #8b949e;
+    font-size: 14px;
+}
