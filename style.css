@@ -285,7 +285,7 @@ main {
 
 .esports-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:  1fr;
     gap: 0;
     background: #121827;
     border: 1px solid #242d40;
