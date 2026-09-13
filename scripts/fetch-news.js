@@ -424,12 +424,14 @@ for (const pageUrl of esportsPages) {
         const response = await fetch(pageUrl);
         const html = await response.text();
 
-        const regex = /<a[^>]+href=["'](https:\/\/www\.esports\.id\/read\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+        const regex = /<a[^>]+href=["']([^"']*\/read\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
 
         let match;
 
         while ((match = regex.exec(html)) !== null) {
-            const url = match[1];
+            const url = match[1].startsWith("http")
+    ? match[1]
+    : `https://www.esports.id${match[1]}`;
             const title = cleanText(match[2]);
 
             if (!title || title.length < 10) continue;
