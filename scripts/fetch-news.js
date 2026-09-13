@@ -412,6 +412,44 @@ async function getGamebrott() {
 }const gamebrottArticles = await getGamebrott();
 
 allArticles = allArticles.concat(gamebrottArticles);
+   // Ambil berita dari Esports ID
+const esportsPages = [
+    "https://www.esports.id/mobile-legends/",
+    "https://www.esports.id/free-fire---battlegrounds",
+    "https://www.esports.id/pubg-m/"
+];
+
+for (const pageUrl of esportsPages) {
+    try {
+        const response = await fetch(pageUrl);
+        const html = await response.text();
+
+        const regex = /<a[^>]+href=["'](https:\/\/www\.esports\.id\/read\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+
+        let match;
+
+        while ((match = regex.exec(html)) !== null) {
+            const url = match[1];
+            const title = cleanText(match[2]);
+
+            if (!title || title.length < 10) continue;
+
+            allArticles.push({
+                title,
+                category: "Esports",
+                date: new Date().toISOString(),
+                description: "",
+                image: "",
+                source: "Esports ID",
+                url
+            });
+        }
+    } catch (error) {
+        console.log("Esports ID gagal diambil:", error.message);
+    }
+}
+
+console.log(`Esports ID berhasil ditambahkan`);
     // Hapus artikel tanpa URL dan duplikat
     const uniqueArticles = [];
     const usedUrls = new Set();
