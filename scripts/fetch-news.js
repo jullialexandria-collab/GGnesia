@@ -26,8 +26,6 @@ function detectCategory(title, description, source) {
     const esportsKeywords = [
         "esports",
         "e-sports",
-        "turnamen",
-        "tournament",
         "mpl",
         "m-series",
         "pmgc",
@@ -36,11 +34,13 @@ function detectCategory(title, description, source) {
         "ffws",
         "vct",
         "valorant champions",
-        "world championship",
-        "grand final",
-        "playoffs",
         "pro player",
-        "roster"
+        "pro league",
+        "roster",
+        "playoffs",
+        "grand final esports",
+        "esports championship",
+        "esports tournament"
     ];
 
     const mobileKeywords = [
@@ -56,7 +56,8 @@ function detectCategory(title, description, source) {
         "genshin impact",
         "honor of kings",
         "honkai",
-        "wuthering waves"
+        "wuthering waves",
+        "zenless zone zero"
     ];
 
     const consoleKeywords = [
@@ -66,7 +67,8 @@ function detectCategory(title, description, source) {
         "xbox",
         "xbox series",
         "nintendo switch",
-        "switch 2"
+        "switch 2",
+        "nintendo"
     ];
 
     if (esportsKeywords.some(word => text.includes(word))) {
