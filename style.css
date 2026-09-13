@@ -475,3 +475,25 @@ main {
 .tournament-card strong {
     color: #ffffff;
 }
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.status-badge.ongoing {
+    background: #238636;
+    color: #ffffff;
+}
+
+.status-badge.upcoming {
+    background: #9e6a03;
+    color: #ffffff;
+}
+
+.status-badge.finished {
+    background: #8b949e;
+    color: #ffffff;
+}
