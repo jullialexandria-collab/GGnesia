@@ -35,13 +35,7 @@
         Informasi jadwal dan turnamen esports dari berbagai game.
     </p>
 
-    <div class="tournament-empty">
-        <div class="empty-icon">🏆</div>
-        <h2>Turnamen</h2>
-        <p>
-            Belum ada data turnamen yang ditampilkan.
-        </p>
-    </div>
+    <div class="tournament-list" id="tournamentList"></div>
 
 </main>
 
@@ -61,6 +55,33 @@
         © 2026 GGNesia. All rights reserved.
     </p>
 </footer>
+
+
+<script>
+async function loadTournaments() {
+    const list = document.getElementById("tournamentList");
+
+    try {
+        const response = await fetch("data/tournaments.json");
+        const tournaments = await response.json();
+
+        list.innerHTML = tournaments.map(tournament => `
+            <div class="tournament-card">
+                <h2>🏆 ${tournament.name}</h2>
+                <p><strong>Game:</strong> ${tournament.game}</p>
+                <p><strong>Status:</strong> ${tournament.status}</p>
+                <p><strong>Tanggal:</strong> ${tournament.date}</p>
+                <p><strong>Lokasi:</strong> ${tournament.location}</p>
+            </div>
+        `).join("");
+    } catch (error) {
+        list.innerHTML = "<p>Gagal memuat data turnamen.</p>";
+    }
+}
+
+loadTournaments();
+</script>
+
 
 </body>
 </html>
