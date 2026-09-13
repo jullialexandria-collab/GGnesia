@@ -133,7 +133,17 @@ async function loadMatches(game = "all") {
         matchList.innerHTML = "<p>Gagal memuat jadwal pertandingan.</p>";
     }
 }
-}
+} document.querySelectorAll(".match-filter-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".match-filter-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        loadMatches(button.dataset.game);
+    });
+});
 document.querySelectorAll(".filter-btn").forEach(button => {
     button.addEventListener("click", () => {
         document.querySelectorAll(".filter-btn").forEach(btn => {
