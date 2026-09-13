@@ -27,8 +27,8 @@ const feeds = [
 ]; 
   function detectCategory(title, 
   description, source) {
-  const text = `${title} ${source}
-`.toLowerCase();
+const text = `${title} ${description} ${source}`
+    .toLowerCase();
     const esportsKeywords = [
         "esports",
         "e-sports",
