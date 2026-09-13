@@ -28,7 +28,7 @@ const feeds = [
   function detectCategory(title, 
   description, source) {
 const text = `${title} ${description} ${source}`
-    .toLowerCase();
+    .toLowerCase();const esportsText = `${title} ${source}`.toLowerCase();
     const esportsKeywords = [
         "esports",
         "e-sports",
@@ -80,7 +80,7 @@ const text = `${title} ${description} ${source}`
         "nintendo"
     ]; 
 if (esportsKeywords.some(word => new 
-    RegExp(`\\b${word}\\b`, "i").test(text))) {
+    RegExp(`\\b${word}\\b`, "i").test(esportsText))) {
     return "Esports";
 }
 
