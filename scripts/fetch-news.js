@@ -69,18 +69,26 @@ function detectCategory(title, description, source) {
         "nintendo switch",
         "switch 2",
         "nintendo"
-    ];
+    ]; 
+if (esportsKeywords.some(word => new 
+    RegExp(`\\b${word}\\b`, "i").test(text))) {
+    return "Esports";
+}
 
-    if (esportsKeywords.some(word => new RegExp(`\\b${word}\\b`, "i").test(text))) {
-    }
+if (mobileKeywords.some(word => new 
+    RegExp(`\\b${word}\\b`, "i").test(text))) {
+    return "Mobile";
+}
 
-    if (mobileKeywords.some(word => new RegExp(`\\b${word}\\b`, "i").test(text))) {
-    }
+if (consoleKeywords.some(word => new 
+    RegExp(`\\b${word}\\b`, "i").test(text))) {
+    return "Console";
+}
 
-    if (consoleKeywords.some(word => new RegExp(`\\b${word}\\b`, "i").test(text))) {
-    }
+return "PC";
+    
 
-    return "PC";
+   
 }
 
 async function getFeed(feed) {
