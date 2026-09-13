@@ -63,26 +63,50 @@
 
 
 <script>
+let tournaments = [];
+
 async function loadTournaments() {
     const list = document.getElementById("tournamentList");
 
     try {
         const response = await fetch("data/tournaments.json");
-        const tournaments = await response.json();
+        tournaments = await response.json();
 
-        list.innerHTML = tournaments.map(tournament => `
-            <div class="tournament-card">
-                <h2>🏆 ${tournament.name}</h2>
-                <p><strong>Game:</strong> ${tournament.game}</p>
-                <p><strong>Status:</strong> <span class="status-badge ${tournament.status.toLowerCase()}">${tournament.status}</span></p>
-                <p><strong>Tanggal:</strong> ${tournament.date}</p>
-                <p><strong>Lokasi:</strong> ${tournament.location}</p>
-            </div>
-        `).join("");
+        showTournaments("all");
     } catch (error) {
         list.innerHTML = "<p>Gagal memuat data turnamen.</p>";
     }
 }
+
+function showTournaments(game) {
+    const list = document.getElementById("tournamentList");
+
+    const filtered = game === "all"
+        ? tournaments
+        : tournaments.filter(tournament => tournament.game === game);
+
+    list.innerHTML = filtered.map(tournament => `
+        <div class="tournament-card">
+            <h2>🏆 ${tournament.name}</h2>
+            <p><strong>Game:</strong> ${tournament.game}</p>
+            <p><strong>Status:</strong> <span class="status-badge ${tournament.status.toLowerCase()}">${tournament.status}</span></p>
+            <p><strong>Tanggal:</strong> ${tournament.date}</p>
+            <p><strong>Lokasi:</strong> ${tournament.location}</p>
+        </div>
+    `).join("");
+}
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        showTournaments(button.dataset.game);
+    });
+});
 
 loadTournaments();
 </script>
