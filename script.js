@@ -8,12 +8,29 @@ document.addEventListener("DOMContentLoaded", () => {
             nav.classList.toggle("active");
         });
     }
+const categoryButtons = document.querySelectorAll("[data-category]");
 
+categoryButtons.forEach(button => {
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const category = button.dataset.category;
+
+        document.querySelectorAll("[data-category]").forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        loadArticles(category);
+    });
+});
     loadArticles();
 });
 
 
-async function loadArticles() {
+async function loadArticles(category = "all") {
+
 
     const newsGrid = document.getElementById("newsGrid");
 
@@ -32,7 +49,13 @@ async function loadArticles() {
 
         const articles = await response.json();
 
-        newsGrid.innerHTML = articles.map(article => {
+
+const filteredArticles = category === "all"
+    ? articles
+    : articles.filter(article => article.category === category);
+
+
+        newsGrid.innerHTML = filteredArticles.map(article => {
 
             const image = article.image && !article.image.includes("ggnesia-placeholder")
     ? `<img src="${article.image}" alt="${article.title}">`
