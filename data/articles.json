@@ -153,24 +153,6 @@
     "url": "https://www.gamespot.com/articles/eas-new-owners-may-be-considering-an-even-bigger-gaming-empire/"
   },
   {
-    "title": "The XApp Project from Linux Mint gets a fancy new website - plus a new Calendar and EPUB reader",
-    "category": "PC Gaming",
-    "date": "2026-09-11T12:01:17.000Z",
-    "description": "I do have to hand it to the Linux Mint team - they do a lot of good work overall and now they're expanding the XApp project. Read the full article on GamingOnLinux.",
-    "image": "https://www.gamingonlinux.com/uploads/tagline_gallery/linuxmint.jpg",
-    "source": "GamingOnLinux",
-    "url": "https://www.gamingonlinux.com/2026/09/the-xapp-project-from-linux-mint-gets-a-fancy-new-website-plus-a-new-calendar-and-epub-reader/"
-  },
-  {
-    "title": "KDE Plasma 6.8 Beta released for testing",
-    "category": "PC Gaming",
-    "date": "2026-09-11T11:46:21.000Z",
-    "description": "The next main release of the KDE Plasma desktop is coming soon, and a first Beta is available for you to check it out and go hunting for bugs. Read the full article on GamingOnLinu",
-    "image": "https://www.gamingonlinux.com/uploads/articles/tagline_images/146615350id29749gol.webp",
-    "source": "GamingOnLinux",
-    "url": "https://www.gamingonlinux.com/2026/09/kde-plasma-6-8-beta-released-for-testing/"
-  },
-  {
     "title": "Story-driven third-person sci-fi shooter - The Wandering Earth: The Last Full Moon announced",
     "category": "PC Gaming",
     "date": "2026-09-11T10:08:27.000Z",
@@ -268,5 +250,23 @@
     "image": "https://www.gamingonlinux.com/uploads/articles/tagline_images/231554468id29738gol.webp",
     "source": "GamingOnLinux",
     "url": "https://www.gamingonlinux.com/2026/09/metal-slug-ultimate-collection-announced-for-steam/"
+  },
+  {
+    "title": "Watch - Valve's GDC 2026 talk on how they're helping developers succeed on PC",
+    "category": "PC Gaming",
+    "date": "2026-09-10T09:42:32.000Z",
+    "description": "Valve went along to GDC Festival of Gaming 2026 to give a talk titled \"Steam Platform 2026: How Valve is Helping Game Developers Succeed on PC Gaming\". Read the full article on Gam",
+    "image": "https://www.gamingonlinux.com/uploads/articles/tagline_images/1386587221id29737gol.webp",
+    "source": "GamingOnLinux",
+    "url": "https://www.gamingonlinux.com/2026/09/watch-valves-gdc-2026-talk-on-how-theyre-helping-developers-succeed-on-pc/"
+  },
+  {
+    "title": "Try the new demo for If Red Then Stop - a traffic coding automation puzzler",
+    "category": "PC Gaming",
+    "date": "2026-09-10T09:16:15.000Z",
+    "description": "If you love puzzle games that teach a little programming and automation - If Red Then Stop looks like your next visit. Read the full article on GamingOnLinux.",
+    "image": "https://www.gamingonlinux.com/uploads/articles/tagline_images/1860355990id29736gol.webp",
+    "source": "GamingOnLinux",
+    "url": "https://www.gamingonlinux.com/2026/09/try-the-new-demo-for-if-red-then-stop-a-traffic-coding-automation-puzzler/"
   }
 ]
