@@ -20,7 +20,69 @@ const feeds = [
         category: "PC Gaming"
     }
 ];
+function detectCategory(title, description, source) {
+    const text = `${title} ${description} ${source}`.toLowerCase();
 
+    const esportsKeywords = [
+        "esports",
+        "e-sports",
+        "turnamen",
+        "tournament",
+        "mpl",
+        "m-series",
+        "pmgc",
+        "pmgo",
+        "pmpl",
+        "ffws",
+        "vct",
+        "valorant champions",
+        "world championship",
+        "grand final",
+        "playoffs",
+        "pro player",
+        "roster"
+    ];
+
+    const mobileKeywords = [
+        "mobile",
+        "android",
+        "ios",
+        "iphone",
+        "ipad",
+        "mobile legends",
+        "mlbb",
+        "pubg mobile",
+        "free fire",
+        "genshin impact",
+        "honor of kings",
+        "honkai",
+        "wuthering waves"
+    ];
+
+    const consoleKeywords = [
+        "ps5",
+        "ps4",
+        "playstation",
+        "xbox",
+        "xbox series",
+        "nintendo switch",
+        "switch 2"
+    ];
+
+    if (esportsKeywords.some(word => text.includes(word))) {
+        return "Esports";
+    }
+
+    if (mobileKeywords.some(word => text.includes(word))) {
+        return "Mobile";
+    }
+
+    if (consoleKeywords.some(word => text.includes(word))) {
+        return "Console";
+    }
+
+    return "PC";
+}
 
 async function getFeed(feed) {
 
@@ -69,7 +131,7 @@ return filteredItems.map(item => {
 
             return {
                 title: cleanText(item.title || "Berita Game"),
-                category: feed.category,
+                category: detectCategory(item.title || "", description, feed.name),
                 date:
                     item.isoDate ||
                     item.pubDate ||
