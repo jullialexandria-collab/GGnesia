@@ -81,35 +81,54 @@ function cleanText(text) {
 
 function getImage(item) {
 
+    // 1. Gambar dari enclosure
     if (item.enclosure && item.enclosure.url) {
         return item.enclosure.url;
     }
 
-    if (item["media:content"]) {
+    // 2. Gambar dari media:content
+    const mediaContent = item["media:content"];
 
-        const media = item["media:content"];
+    if (mediaContent) {
+        const media = Array.isArray(mediaContent)
+            ? mediaContent[0]
+            : mediaContent;
 
-        if (Array.isArray(media) && media.length > 0) {
-            return media[0].$?.url || media[0].url || "";
+        if (media) {
+            return media.$?.url || media.url || "";
         }
-
-        return media.$?.url || media.url || "";
     }
 
-    if (item["media:thumbnail"]) {
+    // 3. Gambar dari media:thumbnail
+    const thumbnail = item["media:thumbnail"];
 
-        const thumbnail = item["media:thumbnail"];
+    if (thumbnail) {
+        const thumb = Array.isArray(thumbnail)
+            ? thumbnail[0]
+            : thumbnail;
 
-        if (Array.isArray(thumbnail) && thumbnail.length > 0) {
-            return thumbnail[0].$?.url || thumbnail[0].url || "";
+        if (thumb) {
+            return thumb.$?.url || thumb.url || "";
         }
+    }
 
-        return thumbnail.$?.url || thumbnail.url || "";
+    // 4. Cari gambar langsung dari isi artikel RSS
+    const content =
+        item.content ||
+        item["content:encoded"] ||
+        item.summary ||
+        "";
+
+    const match = content.match(
+        /<img[^>]+src=["']([^"']+)["']/i
+    );
+
+    if (match && match[1]) {
+        return match[1];
     }
 
     return "";
 }
-
 
 async function main() {
 
