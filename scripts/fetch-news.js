@@ -2,7 +2,7 @@ const fs = require("fs");
 const Parser = require("rss-parser");
 
 const parser = new Parser({
-    timeout: 15000,
+    timeout: 30000,
     headers: {
         "User-Agent": "Mozilla/5.0 GGNesia-NewsBot/1.0"
     }
@@ -20,6 +20,7 @@ const feeds = [
         category: "PC Gaming"
     }
 ];
+
 
 async function getFeed(feed) {
 
@@ -47,12 +48,16 @@ async function getFeed(feed) {
             return {
                 title: cleanText(item.title || "Berita Game"),
                 category: feed.category,
-                date: item.isoDate || item.pubDate || new Date().toISOString(),
+                date:
+                    item.isoDate ||
+                    item.pubDate ||
+                    new Date().toISOString(),
                 description: description.substring(0, 180),
                 image: getImage(item),
                 source: feed.name,
                 url: item.link || "#"
             };
+
         });
 
     } catch (error) {
@@ -81,15 +86,14 @@ function cleanText(text) {
 
 function getImage(item) {
 
-    // 1. Gambar dari enclosure
     if (item.enclosure && item.enclosure.url) {
         return item.enclosure.url;
     }
 
-    // 2. Gambar dari media:content
     const mediaContent = item["media:content"];
 
     if (mediaContent) {
+
         const media = Array.isArray(mediaContent)
             ? mediaContent[0]
             : mediaContent;
@@ -99,10 +103,10 @@ function getImage(item) {
         }
     }
 
-    // 3. Gambar dari media:thumbnail
     const thumbnail = item["media:thumbnail"];
 
     if (thumbnail) {
+
         const thumb = Array.isArray(thumbnail)
             ? thumbnail[0]
             : thumbnail;
@@ -112,7 +116,6 @@ function getImage(item) {
         }
     }
 
-    // 4. Cari gambar langsung dari isi artikel RSS
     const content =
         item.content ||
         item["content:encoded"] ||
@@ -130,6 +133,124 @@ function getImage(item) {
     return "";
 }
 
+
+async function getPageImage(url) {
+
+    if (!url || url === "#") {
+        return "";
+    }
+
+    try {
+
+        const controller = new AbortController();
+
+        const timeout = setTimeout(() => {
+            controller.abort();
+        }, 10000);
+
+        const response = await fetch(url, {
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36",
+                "Accept":
+                    "text/html,application/xhtml+xml"
+            },
+            signal: controller.signal
+        });
+
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+            console.log(
+                `Halaman artikel gagal: ${response.status}`
+            );
+            return "";
+        }
+
+        const html = await response.text();
+
+        // Open Graph image
+        let match = html.match(
+            /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i
+        );
+
+        if (!match) {
+            match = html.match(
+                /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i
+            );
+        }
+
+        if (match && match[1]) {
+            return new URL(match[1], url).href;
+        }
+
+        // Twitter image
+        match = html.match(
+            /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i
+        );
+
+        if (!match) {
+            match = html.match(
+                /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i
+            );
+        }
+
+        if (match && match[1]) {
+            return new URL(match[1], url).href;
+        }
+
+        return "";
+
+    } catch (error) {
+
+        console.log(
+            `Tidak bisa mengambil gambar: ${error.message}`
+        );
+
+        return "";
+    }
+}
+
+
+async function addMissingImages(articles) {
+
+    console.log("\nMencari gambar artikel...");
+
+    // Maksimal 4 artikel diproses bersamaan
+    const batchSize = 4;
+
+    for (let i = 0; i < articles.length; i += batchSize) {
+
+        const batch = articles.slice(i, i + batchSize);
+
+        await Promise.all(
+            batch.map(async article => {
+
+                if (article.image) {
+                    return;
+                }
+
+                console.log(
+                    `Mencari gambar: ${article.title.substring(0, 60)}...`
+                );
+
+                const image = await getPageImage(article.url);
+
+                if (image) {
+                    article.image = image;
+                    console.log("Gambar ditemukan.");
+                } else {
+                    console.log("Gambar tidak ditemukan.");
+                }
+
+            })
+        );
+    }
+
+    return articles;
+}
+
+
 async function main() {
 
     let allArticles = [];
@@ -145,6 +266,8 @@ async function main() {
         `\nTotal artikel sebelum filter: ${allArticles.length}`
     );
 
+
+    // Hapus artikel tanpa URL dan duplikat
     const uniqueArticles = [];
     const usedUrls = new Set();
 
@@ -162,23 +285,46 @@ async function main() {
         uniqueArticles.push(article);
     }
 
+
+    // Urutkan dari yang terbaru
     uniqueArticles.sort((a, b) => {
+
         return new Date(b.date) - new Date(a.date);
+
     });
 
-    const latestArticles = uniqueArticles.slice(0, 30);
 
+    // Ambil 30 berita terbaru
+    let latestArticles = uniqueArticles.slice(0, 30);
+
+
+    // Cari gambar yang belum tersedia
+    latestArticles = await addMissingImages(latestArticles);
+
+
+    // Simpan ke JSON
     fs.writeFileSync(
         "data/articles.json",
         JSON.stringify(latestArticles, null, 2),
         "utf8"
     );
 
+
+    const imagesFound = latestArticles.filter(
+        article => article.image
+    ).length;
+
+
     console.log(
-        `Total berita disimpan: ${latestArticles.length}`
+        `\nTotal berita disimpan: ${latestArticles.length}`
+    );
+
+    console.log(
+        `Total gambar ditemukan: ${imagesFound}`
     );
 
     console.log("Selesai.");
 }
 
-main();
+
+main(); 
