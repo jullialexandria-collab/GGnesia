@@ -71,16 +71,13 @@ function detectCategory(title, description, source) {
         "nintendo"
     ];
 
-    if (esportsKeywords.some(word => text.includes(word))) {
-        return "Esports";
+    if (esportsKeywords.some(word => new RegExp(`\\b${word}\\b`, "i").test(text))) {
     }
 
-    if (mobileKeywords.some(word => text.includes(word))) {
-        return "Mobile";
+    if (mobileKeywords.some(word => new RegExp(`\\b${word}\\b`, "i").test(text))) {
     }
 
-    if (consoleKeywords.some(word => text.includes(word))) {
-        return "Console";
+    if (consoleKeywords.some(word => new RegExp(`\\b${word}\\b`, "i").test(text))) {
     }
 
     return "PC";
