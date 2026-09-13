@@ -50,22 +50,25 @@ const text = `${title} ${description} ${source}`
     ];
 
     const mobileKeywords = [
-        "mobile",
-        "android",
-        "ios",
         "iphone",
-        "ipad",
-        "mobile legends",
-        "mlbb",
-        "pubg mobile",
-        "free fire",
-        "genshin impact",
-        "honor of kings",
-        "honkai",
-        "wuthering waves",
-        "zenless zone zero"
-    ];
-
+"ipad",
+"mobile legends",
+"mlbb",
+"pubg mobile",
+"free fire",
+"genshin impact",
+"honor of kings",
+"honkai",
+"wuthering waves",
+"zenless zone zero",
+"mobile game",
+"mobile gaming",
+"wild rift",
+"call of duty mobile",
+"cod mobile",
+"pokemon go",
+"delta force mobile"
+];
     const consoleKeywords = [
         "ps5",
         "ps4",
