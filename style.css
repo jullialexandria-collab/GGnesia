@@ -407,4 +407,10 @@ main {
         flex-direction: column;
         gap: 12px;
     }
+}.  
+.news-card h3 {
+    overflow: visible;
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
 }
